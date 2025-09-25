@@ -45,6 +45,10 @@ $ ./srt2fcpxml
 # 自动查找SRT文件并使用指定帧率 (1920x1080@60帧)
 $ ./srt2fcpxml 60
 
+# Auto find SRT file with custom resolution and default frame rate (30fps)
+# 自动查找SRT文件并使用自定义分辨率和默认帧率 (30帧)
+$ ./srt2fcpxml 1920 1080
+
 # Auto find SRT file with custom resolution and frame rate
 # 自动查找SRT文件并使用自定义分辨率和帧率
 $ ./srt2fcpxml 1920 1080 29.97
@@ -61,6 +65,9 @@ $ ./srt2fcpxml
 
 # Convert with 60fps (60帧转换)
 $ ./srt2fcpxml 60
+
+# Convert with custom resolution and default frame rate (自定义分辨率和默认帧率转换)
+$ ./srt2fcpxml 1920 1080
 
 # Convert with custom settings (自定义设置转换)
 $ ./srt2fcpxml 1920 1080 29.97

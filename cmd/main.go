@@ -57,6 +57,30 @@ func main() {
 			printUsage()
 			os.Exit(1)
 		}
+	case 2:
+		// ./srt2fcpxml 1920 1080 - 使用指定分辨率和默认帧率
+		var err error
+		width, err = strconv.Atoi(args[0])
+		if err != nil {
+			fmt.Printf("Error parsing width: %v\n", err)
+			printUsage()
+			os.Exit(1)
+		}
+
+		height, err = strconv.Atoi(args[1])
+		if err != nil {
+			fmt.Printf("Error parsing height: %v\n", err)
+			printUsage()
+			os.Exit(1)
+		}
+		frameDuration = 30
+
+		srtFile, err = findSrtFileInCurrentDir()
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			printUsage()
+			os.Exit(1)
+		}
 
 	case 3:
 		// ./srt2fcpxml 1920 1080 30 - 使用指定分辨率和帧率
@@ -224,6 +248,7 @@ func printUsage() {
 	fmt.Println("Usage:")
 	fmt.Println("  ./srt2fcpxml                    - Auto find SRT file in current directory, use 1920x1080@30fps")
 	fmt.Println("  ./srt2fcpxml <framerate>        - Auto find SRT file, use specified framerate with 1920x1080")
+	fmt.Println("  ./srt2fcpxml <width> <height> - Auto find SRT file, use specified resolution with 30fps")
 	fmt.Println("  ./srt2fcpxml <width> <height> <framerate> - Auto find SRT file, use specified resolution and framerate")
 	fmt.Println("  ./srt2fcpxml --version | -v     - Show version information")
 	fmt.Println("")
@@ -232,5 +257,6 @@ func printUsage() {
 	fmt.Println("Examples:")
 	fmt.Println("  ./srt2fcpxml                    - Convert with 1920x1080@30fps")
 	fmt.Println("  ./srt2fcpxml 60                 - Convert with 1920x1080@60fps")
+	fmt.Println("  ./srt2fcpxml 1920 1080          - Convert with 1920x1080@30fps")
 	fmt.Println("  ./srt2fcpxml 1920 1080 29.97    - Convert with 1920x1080@29.97fps")
 }
