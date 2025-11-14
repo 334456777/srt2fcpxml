@@ -47,7 +47,7 @@ func Srt2FcpXmlExport(projectName string, frameDuration interface{}, subtitles *
 	spine := Spine.NewSpine().SetGap(gap)
 	seq := Sequence.NewSequence(subtitles.Duration().Seconds()).SetSpine(spine)
 	project := Project.NewProject(projectName).SetSequence(seq)
-	event := Event.NewEvent().SetProject(project)
+	event := Event.NewEvent().SetName("srt2fcpxml").SetProject(project)
 	library := Library.NewLibrary(projectName).SetEvent(event)
 	fcpxml.SetLibrary(library)
 

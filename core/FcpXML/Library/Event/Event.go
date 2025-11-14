@@ -26,3 +26,8 @@ func (e *Event) SetProject(project *Project.Project) *Event {
 	e.Project = project
 	return e
 }
+
+func (e *Event) SetName(name string) *Event {
+	e.Name = name
+	return e
+}
