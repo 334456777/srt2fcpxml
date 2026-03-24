@@ -22,7 +22,7 @@ func NewGap(duration float64) *Gap {
 	frameRateR := Common.FrameDuration(frameRate)
 	frameDurationMolecular, frameDurationDenominator, _ := Common.FrameDurationFormat(frameRate)
 	return &Gap{
-		Name:     "空隙",
+		Name:     "Gap",
 		Offset:   "0s",
 		Duration: fmt.Sprintf("%.f/%.fs", lib.Round(duration*frameRateR, 0)*frameDurationMolecular, frameDurationDenominator),
 		Start:    fmt.Sprintf("%.f/%.fs", 3.6*frameDurationDenominator*frameDurationMolecular, frameDurationDenominator),

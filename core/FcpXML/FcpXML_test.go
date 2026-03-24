@@ -28,10 +28,10 @@ func TestFcpXML_SetVersion(t *testing.T) {
 
 	textStyleDef := Title.NewTextStyleDef(1)
 	text := Title.NewContent(1, "4:00")
-	title := Title.NewTitle("4:00 - 基本字幕", 4.0, 7.8).SetTextStyleDef(textStyleDef).SetText(text)
-	title.AddParam(Title.NewParams("位置", "9999/999166631/999166633/1/100/101", "0 -450"))
-	title.AddParam(Title.NewParams("对齐", "9999/999166631/999166633/2/354/999169573/401", "1 (居中)"))
-	title.AddParam(Title.NewParams("展平", "9999/999166631/999166633/2/351", "1"))
+	title := Title.NewTitle("4:00 - Basic Subtitle", 4.0, 7.8).SetTextStyleDef(textStyleDef).SetText(text)
+	title.AddParam(Title.NewParams("Position", "9999/999166631/999166633/1/100/101", "0 -450"))
+	title.AddParam(Title.NewParams("Alignment", "9999/999166631/999166633/2/354/999169573/401", "1 (centered)"))
+	title.AddParam(Title.NewParams("Flatten", "9999/999166631/999166633/2/351", "1"))
 	gap.AddTitle(title)
 
 	spine := Spine.NewSpine().SetGap(gap)
@@ -42,7 +42,7 @@ func TestFcpXML_SetVersion(t *testing.T) {
 
 	event := Event.NewEvent().SetProject(project)
 
-	lib := Library.NewLibrary("未命名 1").SetEvent(event)
+	lib := Library.NewLibrary("Untitled 1").SetEvent(event)
 
 	fcpxml.SetLibrary(lib)
 

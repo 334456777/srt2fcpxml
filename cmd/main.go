@@ -11,10 +11,10 @@ import (
 	"github.com/asticode/go-astisub"
 )
 
-var version = "dev" // 将在构建时通过 ldflags 设置
+var version = "dev" // Set via ldflags at build time
 
 func main() {
-	args := os.Args[1:] // 获取除程序名外的所有参数
+	args := os.Args[1:] // Get all arguments except program name
 
 	// 检查版本标志
 	if len(args) == 1 && (args[0] == "--version" || args[0] == "-v") {
@@ -31,7 +31,7 @@ func main() {
 	// 根据参数数量解析不同的模式
 	switch len(args) {
 	case 0:
-		// ./srt2fcpxml - 自动寻找同目录的srt文件，使用默认参数
+		// ./srt2fcpxml - Auto find SRT file in current directory with default parameters
 		var err error
 		srtFile, err = findSrtFileInCurrentDir()
 		if err != nil {
@@ -42,7 +42,7 @@ func main() {
 		frameDuration = 30
 
 	case 1:
-		// ./srt2fcpxml 60 - 使用指定帧率
+		// ./srt2fcpxml 60 - Use specified frame rate
 		frameRate, err := parseFrameRate(args[0])
 		if err != nil {
 			fmt.Printf("Error parsing frame rate: %v\n", err)
@@ -58,7 +58,7 @@ func main() {
 			os.Exit(1)
 		}
 	case 2:
-		// ./srt2fcpxml 1920 1080 - 使用指定分辨率和默认帧率
+		// ./srt2fcpxml 1920 1080 - Use specified resolution with default frame rate
 		var err error
 		width, err = strconv.Atoi(args[0])
 		if err != nil {
@@ -83,7 +83,7 @@ func main() {
 		}
 
 	case 3:
-		// ./srt2fcpxml 1920 1080 30 - 使用指定分辨率和帧率
+		// ./srt2fcpxml 1920 1080 30 - Use specified resolution and frame rate
 		var err error
 		width, err = strconv.Atoi(args[0])
 		if err != nil {
@@ -119,14 +119,14 @@ func main() {
 		os.Exit(1)
 	}
 
-	// 打开SRT文件
+	// Open SRT file
 	f, err := astisub.OpenFile(srtFile)
 	if err != nil {
 		fmt.Printf("Error opening SRT file %s: %v\n", srtFile, err)
 		os.Exit(1)
 	}
 
-	// 生成XML输出
+	// Generate XML output
 	out := `<?xml version="1.0" encoding="UTF-8" ?>
 	<!DOCTYPE fcpxml>
 	
@@ -172,7 +172,7 @@ func getPath(filePath string) (projectName, targetPath string) {
 	return
 }
 
-// findSrtFileInCurrentDir 在当前目录查找SRT文件
+// findSrtFileInCurrentDir finds SRT files in current directory
 func findSrtFileInCurrentDir() (string, error) {
 	currentDir, err := os.Getwd()
 	if err != nil {
@@ -199,14 +199,14 @@ func findSrtFileInCurrentDir() (string, error) {
 		return filepath.Join(currentDir, srtFiles[0]), nil
 	}
 
-	// 如果有多个SRT文件，返回第一个
+	// If multiple SRT files exist, return the first one
 	fmt.Printf("Found multiple SRT files, using: %s\n", srtFiles[0])
 	return filepath.Join(currentDir, srtFiles[0]), nil
 }
 
-// parseFrameRate 解析帧率参数
+// parseFrameRate parses frame rate parameter
 func parseFrameRate(frameRateStr string) (interface{}, error) {
-	// 支持的帧率：23.98、24、25、29.97、30、50、59.94、60
+	// Supported frame rates: 23.98, 24, 25, 29.97, 30, 50, 59.94, 60
 	supportedRates := map[string]interface{}{
 		"23.98": 23.98,
 		"24":    24,
@@ -222,7 +222,7 @@ func parseFrameRate(frameRateStr string) (interface{}, error) {
 		return rate, nil
 	}
 
-	// 尝试解析为浮点数
+	// Try parsing as float
 	if strings.Contains(frameRateStr, ".") {
 		rate, err := strconv.ParseFloat(frameRateStr, 64)
 		if err != nil {
@@ -231,7 +231,7 @@ func parseFrameRate(frameRateStr string) (interface{}, error) {
 		return rate, nil
 	}
 
-	// 尝试解析为整数
+	// Try parsing as integer
 	rate, err := strconv.Atoi(frameRateStr)
 	if err != nil {
 		return nil, fmt.Errorf("invalid frame rate format: %s", frameRateStr)
@@ -240,7 +240,7 @@ func parseFrameRate(frameRateStr string) (interface{}, error) {
 	return rate, nil
 }
 
-// printUsage 打印使用说明
+// printUsage prints usage instructions
 func printUsage() {
 	fmt.Printf("srt2fcpxml version %s\n", version)
 	fmt.Println("Convert SRT subtitle files to Final Cut Pro XML format")
